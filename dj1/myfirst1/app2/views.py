@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(req):
-    return HttpResponse('Hello world app2 ')
+    return render(req,'base2.html')
 
 def about(req):
     a=10**10

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Website</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f7fb;
+            color:#333;
+        }
+
+        header{
+            background:#0f172a;
+            color:white;
+            padding:18px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:bold;
+        }
+
+        nav a{
+            color:white;
+            text-decoration:none;
+            margin-left:25px;
+            transition:.3s;
+        }
+
+        nav a:hover{
+            color:#38bdf8;
+        }
+
+        .hero{
+            height:85vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:20px;
+            background:linear-gradient(135deg,#2563eb,#06b6d4);
+            color:white;
+        }
+
+        .hero h1{
+            font-size:55px;
+            margin-bottom:20px;
+        }
+
+        .hero p{
+            font-size:20px;
+            max-width:700px;
+            margin:auto;
+            line-height:1.6;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:35px;
+            padding:15px 35px;
+            background:white;
+            color:#2563eb;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .btn:hover{
+            transform:translateY(-3px);
+            background:#e5e7eb;
+        }
+
+        .features{
+            width:90%;
+            max-width:1200px;
+            margin:70px auto;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            text-align:center;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+            transition:.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+        }
+
+        .card h3{
+            margin-bottom:15px;
+            color:#2563eb;
+        }
+
+        footer{
+            background:#0f172a;
+            color:white;
+            text-align:center;
+            padding:20px;
+            margin-top:60px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">DjangoSite</div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>Build Amazing Django Applications</h1>
+
+        <p>
+            Create powerful, secure and scalable web applications using
+            Django. This responsive homepage is a great starting point
+            for your next project.
+        </p>
+
+        <a href="#" class="btn">Get Started</a>
+    </div>
+</section>
+
+<section class="features">
+
+    <div class="card">
+        <h3>Fast Development</h3>
+        <p>Develop applications quickly using Django's built-in features and clean architecture.</p>
+    </div>
+
+    <div class="card">
+        <h3>Secure</h3>
+        <p>Protection against common web vulnerabilities like CSRF, SQL Injection and XSS.</p>
+    </div>
+
+    <div class="card">
+        <h3>Scalable</h3>
+        <p>Suitable for projects ranging from personal websites to enterprise applications.</p>
+    </div>
+
+</section>
+
+<footer>
+    <p>&copy; 2026 DjangoSite. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midnight Reel — Watch something strange</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0a0d;
+    --ink-2:#141217;
+    --paper:#efe9dd;
+    --paper-dim:#b8b0a0;
+    --marquee:#e8b34c;
+    --marquee-dim:#8a6a2c;
+    --velvet:#7a2b2b;
+    --line: rgba(239,233,221,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--marquee); color:var(--ink); }
+  ::-webkit-scrollbar{ height:8px; width:8px; }
+  ::-webkit-scrollbar-thumb{ background:#333; border-radius:4px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+  .display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- grain overlay ---------- */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:200;
+    opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw;
+    background:linear-gradient(to bottom, rgba(11,10,13,0.9), transparent);
+    transition:background .3s ease;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.5rem;
+    letter-spacing:0.01em;
+    display:flex; align-items:center; gap:9px;
+  }
+  .logo .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--velvet);
+    box-shadow:0 0 10px 2px rgba(122,43,43,0.7);
+  }
+  nav.links{ display:flex; gap:34px; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--paper-dim); }
+  nav.links a{ position:relative; padding-bottom:4px; transition:color .25s; }
+  nav.links a:hover, nav.links a.active{ color:var(--paper); }
+  nav.links a.active::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--marquee);
+  }
+  .nav-right{ display:flex; align-items:center; gap:22px; }
+  .search-btn, .profile{
+    width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line);
+    transition:border-color .25s;
+  }
+  .search-btn:hover{ border-color:var(--marquee); }
+  .profile{ background:linear-gradient(135deg, var(--velvet), #3a1414); font-family:'Fraunces',serif; font-size:0.85rem; }
+
+  @media (max-width: 860px){
+    nav.links{ display:none; }
+  }
+
+  /* ---------- marquee frame (signature element) ---------- */
+  .marquee-frame{
+    position:relative;
+    margin: 0 3vw;
+    padding: 3px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(232,179,76,0.35), rgba(232,179,76,0.05));
+  }
+  .bulb-row{
+    position:absolute; left:14px; right:14px; display:flex; justify-content:space-between; z-index:5;
+  }
+  .bulb-row.top{ top:10px; }
+  .bulb-row.bottom{ bottom:10px; }
+  .bulb{
+    width:5px; height:5px; border-radius:50%;
+    background:var(--marquee);
+    box-shadow:0 0 6px 1.5px rgba(232,179,76,0.9);
+    animation: blink 2.4s infinite ease-in-out;
+  }
+  @media (prefers-reduced-motion: reduce){ .bulb{ animation:none; } }
+  .bulb:nth-child(odd){ animation-delay:0s; }
+  .bulb:nth-child(even){ animation-delay:1.2s; }
+  @keyframes blink{
+    0%, 40%{ opacity:1; }
+    50%, 90%{ opacity:0.25; }
+    100%{ opacity:1; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    border-radius:2px;
+    overflow:hidden;
+    display:flex; align-items:flex-end;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(122,43,43,0.35), transparent 55%),
+      radial-gradient(ellipse at 75% 75%, rgba(232,179,76,0.12), transparent 50%),
+      linear-gradient(180deg, #17141a 0%, #0b0a0d 70%);
+  }
+  .hero::before{
+    /* film strip sprocket texture on the edges */
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(0deg, transparent 0 26px, rgba(239,233,221,0.03) 26px 27px);
+    pointer-events:none;
+  }
+  .hero-content{
+    position:relative; z-index:2;
+    padding: 0 6vw 7vw;
+    max-width: 720px;
+  }
+  .eyebrow{
+    display:flex; align-items:center; gap:10px;
+    font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--marquee); margin-bottom:22px;
+  }
+  .eyebrow::before{ content:"●"; font-size:0.5rem; color:var(--velvet); }
+  h1.hero-title{
+    font-size: clamp(2.6rem, 7vw, 5.4rem);
+    line-height:0.98;
+    margin-bottom:22px;
+  }
+  h1.hero-title em{ color:var(--paper-dim); font-style:italic; }
+  .hero-desc{
+    font-size:1rem; line-height:1.65; color:var(--paper-dim);
+    max-width:520px; margin-bottom:34px;
+  }
+  .hero-meta{
+    display:flex; gap:18px; align-items:center; margin-bottom:34px;
+    font-size:0.82rem; color:var(--paper-dim); letter-spacing:0.03em;
+  }
+  .hero-meta .tag{
+    border:1px solid var(--line); padding:4px 10px; border-radius:2px;
+  }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-play{
+    display:flex; align-items:center; gap:10px;
+    background:var(--paper); color:var(--ink);
+    padding:14px 26px; border-radius:2px;
+    font-weight:600; font-size:0.9rem; letter-spacing:0.02em;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .btn-play:hover{ transform:translateY(-2px); background:#fff; }
+  .btn-play svg{ width:14px; height:14px; }
+  .btn-ghost{
+    display:flex; align-items:center; gap:10px;
+    border:1px solid var(--line); color:var(--paper);
+    padding:14px 26px; border-radius:2px;
+    font-weight:500; font-size:0.9rem;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{ border-color:var(--paper); background:rgba(239,233,221,0.05); }
+
+  /* ---------- rows ---------- */
+  .catalog{ padding: 70px 0 40px; }
+  .row{ margin-bottom:56px; }
+  .row-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding: 0 5vw; margin-bottom:18px;
+  }
+  .row-title{ font-size:1.35rem; display:flex; align-items:baseline; gap:12px; }
+  .row-count{ font-size:0.75rem; color:var(--paper-dim); font-family:'Inter',sans-serif; letter-spacing:0.04em; }
+  .row-more{ font-size:0.78rem; color:var(--paper-dim); letter-spacing:0.05em; text-transform:uppercase; }
+  .row-more:hover{ color:var(--marquee); }
+
+  .track{
+    display:flex; gap:16px; overflow-x:auto; padding: 4px 5vw 20px;
+    scroll-snap-type:x proximity;
+  }
+  .track::-webkit-scrollbar{ display:none; }
+  .track{ scrollbar-width:none; }
+
+  .card{
+    position:relative;
+    flex:0 0 auto;
+    width:210px; aspect-ratio: 2 / 3;
+    border-radius:3px; overflow:hidden;
+    scroll-snap-align:start;
+    cursor:pointer;
+    transform:translateY(0);
+    transition:transform .3s ease, box-shadow .3s ease;
+    display:flex; align-items:flex-end;
+  }
+  .card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px -12px rgba(0,0,0,0.6); }
+  .card .poster-label{
+    position:relative; z-index:2; padding:16px 14px;
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.05rem; line-height:1.15;
+    color:var(--paper);
+    text-shadow:0 2px 10px rgba(0,0,0,0.6);
+  }
+  .card .rank{
+    position:absolute; top:10px; left:12px; z-index:2;
+    font-family:'Fraunces', serif; font-style:italic; font-size:0.78rem;
+    color:var(--marquee); letter-spacing:0.05em;
+  }
+  .card::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+    z-index:1;
+  }
+  .card .play-pill{
+    position:absolute; top:10px; right:10px; z-index:2;
+    width:26px; height:26px; border-radius:50%;
+    background:rgba(11,10,13,0.55); border:1px solid rgba(239,233,221,0.3);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transform:scale(0.85);
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .card:hover .play-pill{ opacity:1; transform:scale(1); }
+  .card .play-pill svg{ width:9px; height:9px; }
+
+  /* palette variety for posters, named per mood */
+  .p1{ background: linear-gradient(160deg,#3a1414,#0e0c10 70%); }
+  .p2{ background: linear-gradient(160deg,#1a2a33,#0b0a0d 70%); }
+  .p3{ background: linear-gradient(160deg,#2c2410,#0b0a0d 70%); }
+  .p4{ background: linear-gradient(160deg,#241030,#0b0a0d 70%); }
+  .p5{ background: linear-gradient(160deg,#0f2b22,#0b0a0d 70%); }
+  .p6{ background: linear-gradient(160deg,#33200f,#0b0a0d 70%); }
+  .p7{ background: linear-gradient(160deg,#1f1f1f,#0b0a0d 70%); }
+  .p8{ background: linear-gradient(160deg,#2a1420,#0b0a0d 70%); }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding: 60px 5vw 40px;
+    border-top:1px solid var(--line);
+    margin-top:60px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;
+    color:var(--paper-dim); font-size:0.82rem;
+  }
+  footer .fcol{ display:flex; flex-direction:column; gap:10px; }
+  footer .fcol strong{ color:var(--paper); font-family:'Fraunces',serif; font-weight:500; font-size:0.95rem; margin-bottom:4px; }
+  footer a:hover{ color:var(--marquee); }
+
+  @media (max-width: 640px){
+    header{ padding:16px 5vw; }
+    .hero{ min-height:82vh; }
+    .card{ width:150px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="logo"><span class="dot"></span>Midnight Reel</div>
+  <nav class="links">
+    <a href="#" class="active">Browse</a>
+    <a href="#">Late Night</a>
+    <a href="#">Shorts</a>
+    <a href="#">Watchlist</a>
+  </nav>
+  <div class="nav-right">
+    <button class="search-btn" aria-label="Search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <div class="profile">M</div>
+  </div>
+</header>
+
+<main>
+  <div class="marquee-frame">
+    <div class="bulb-row top" id="bulbTop"></div>
+    <div class="bulb-row bottom" id="bulbBottom"></div>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Now Screening · Midnight Slot</div>
+        <h1 class="hero-title display">The Hour of<br><em>the Wolf</em></h1>
+        <p class="hero-desc">A painter and his pregnant wife retreat to a remote island, where sleepless nights unravel into visions no one else can see. A slow, hallucinatory descent, restored in 4K.</p>
+        <div class="hero-meta">
+          <span class="tag">1968</span>
+          <span class="tag">2h 30m</span>
+          <span class="tag">Psychological</span>
+          <span class="tag">B&amp;W</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#" class="btn-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play
+          </a>
+          <a href="#" class="btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Watchlist
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="catalog">
+
+    <div class="row">
+      <div class="row-head">
+        <div class="row-title display">Tonight's Double Feature <span class="row-count">selected by the projectionist</span></div>
+        <a href="#" class="row-more">See all</a>
+      </div>
+      <div class="track">
+        <div class="card p1"><span class="rank">01</span><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Eraserhead</span></div>
+        <div class="card p2"><span class="rank">02</span><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Stalker</span></div>
+        <div class="card p3"><span class="rank">03</span><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">The Vanishing</span></div>
+        <div class="card p4"><span class="rank">04</span><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Possession</span></div>
+        <div class="card p5"><span class="rank">05</span><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Aguirre</span></div>
+        <div class="card p6"><span class="rank">06</span><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Marketa Lazarová</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-head">
+        <div class="row-title display">Restored in 4K</div>
+        <a href="#" class="row-more">See all</a>
+      </div>
+      <div class="track">
+        <div class="card p7"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Onibaba</span></div>
+        <div class="card p8"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Vampyr</span></div>
+        <div class="card p1"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Persona</span></div>
+        <div class="card p3"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Häxan</span></div>
+        <div class="card p5"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Eyes Without a Face</span></div>
+        <div class="card p2"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">The Wicker Man</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-head">
+        <div class="row-title display">Shorts Under 20 Minutes</div>
+        <a href="#" class="row-more">See all</a>
+      </div>
+      <div class="track">
+        <div class="card p4"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">La Jetée</span></div>
+        <div class="card p6"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Un Chien Andalou</span></div>
+        <div class="card p8"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Meshes of the Afternoon</span></div>
+        <div class="card p7"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">Neighbours</span></div>
+        <div class="card p2"><div class="play-pill"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><span class="poster-label">The Red Balloon</span></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="fcol">
+    <strong>Midnight Reel</strong>
+    <span>One strange film a night.</span>
+  </div>
+  <div class="fcol">
+    <strong>Browse</strong>
+    <a href="#">Catalog</a>
+    <a href="#">Late Night</a>
+    <a href="#">Shorts</a>
+  </div>
+  <div class="fcol">
+    <strong>Account</strong>
+    <a href="#">Watchlist</a>
+    <a href="#">Settings</a>
+    <a href="#">Sign out</a>
+  </div>
+  <div class="fcol">
+    <strong>Support</strong>
+    <a href="#">Help</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // populate marquee bulb rows
+  function fillBulbs(id, count){
+    const row = document.getElementById(id);
+    for(let i=0;i<count;i++){
+      const b = document.createElement('span');
+      b.className = 'bulb';
+      row.appendChild(b);
+    }
+  }
+  const bulbCount = Math.floor(window.innerWidth / 34);
+  fillBulbs('bulbTop', bulbCount);
+  fillBulbs('bulbBottom', bulbCount);
+
+  // header background solidifies on scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40){
+      header.style.background = 'rgba(11,10,13,0.92)';
+    } else {
+      header.style.background = 'linear-gradient(to bottom, rgba(11,10,13,0.9), transparent)';
+    }
+  });
+</script>
+
+</body>
+</html>
