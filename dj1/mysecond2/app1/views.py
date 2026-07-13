@@ -20,3 +20,43 @@ def home (request):
                      'created_at':'2023-01-01',
                  }}
         return render(request,'home.html',context)
+
+
+def control(request):
+    content = {
+        "company": "GameVerse Studios",
+        "role": "Backend Django Developer Intern",
+        "location": "Remote",
+        "experience": "Fresher",
+        "salary": "₹6 - ₹10 LPA",
+
+        "requirements": [
+            "Good knowledge of Python",
+            "Basic understanding of Django",
+            "Knowledge of HTML & CSS",
+            "Basic SQL knowledge",
+            "Understanding of Git & GitHub",
+            "Problem-solving skills"
+        ],
+
+        "skills": [
+            "Python",
+            "Django",
+            "REST API",
+            "Git",
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+
+        "benefits": [
+            "Work From Home",
+            "Flexible Working Hours",
+            "Learning Budget",
+            "Performance Bonus",
+            "Certificate of Internship"
+        ]
+    }
+
+   
+    return render(request,'controlflow.html',content)
