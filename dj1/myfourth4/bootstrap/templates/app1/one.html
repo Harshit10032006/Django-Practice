@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Games</title>
+
+    <link rel="stylesheet" href="{% static 'cs/style.css' %}">
+</head>
+<body>
+
+    {% include "nav.html" %}
+
+    <section class="hero">
+        <h1>Explore <span>Games</span></h1>
+
+        <p>
+            Browse our collection of exciting games across different genres.
+            Choose your favorite and start your adventure.
+        </p>
+    </section>
+
+    <section class="features">
+
+        <div class="card">
+            <h2>🎯 Action</h2>
+            <p>Fast-paced combat, adventures, and thrilling missions.</p>
+        </div>
+
+        <div class="card">
+            <h2>🏎 Racing</h2>
+            <p>Drive the fastest cars and compete in exciting races.</p>
+        </div>
+
+        <div class="card">
+            <h2>⚽ Sports</h2>
+            <p>Play football, cricket, basketball, and more.</p>
+        </div>
+
+    </section>
+
+    <section class="features">
+
+        <div class="card">
+            <h2>🧩 Puzzle</h2>
+            <p>Challenge your mind with creative puzzle games.</p>
+        </div>
+
+        <div class="card">
+            <h2>🌍 Open World</h2>
+            <p>Explore huge maps and complete exciting quests.</p>
+        </div>
+
+        <div class="card">
+            <h2>👥 Multiplayer</h2>
+            <p>Team up or compete with players from around the world.</p>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Game Zone | Explore Your Next Adventure</p>
+    </footer>
+
+</body>
+</html>

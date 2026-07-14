@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Zone</title>
+
+    <link rel="stylesheet" href="{% static 'cs/style.css' %}">
+</head>
+<body>
+
+    {% include "nav.html" %}
+
+    <section class="hero">
+        <h1>Welcome to <span>Game Zone</span></h1>
+
+        <p>
+            Discover the latest games, play with friends, and
+            enjoy the ultimate gaming experience.
+        </p>
+
+        <div class="btn-group">
+            <a href="{% url 'one' %}" class="btn primary-btn">One</a>
+        </div>
+    </section>
+
+    <section class="features">
+
+        <div class="card">
+            <h2>Latest Games</h2>
+            <p>Explore hundreds of trending games.</p>
+        </div>
+
+        <div class="card">
+            <h2>Multiplayer</h2>
+            <p>Play online with gamers around the world.</p>
+        </div>
+
+        <div class="card">
+            <h2>Tournaments</h2>
+            <p>Compete and climb the global leaderboard.</p>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Game Zone</p>
+    </footer>
+
+</body>
+</html>

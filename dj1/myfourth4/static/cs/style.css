@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#0f172a,#1e293b,#111827);
+    color: white;
+}
+
+/* Navbar */
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    background: rgba(0,0,0,0.5);
+}
+
+.logo{
+    font-size: 32px;
+    font-weight: bold;
+    color: #00e5ff;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
+}
+
+nav ul li{
+    margin-left: 30px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover{
+    color: #00e5ff;
+}
+
+/* Hero Section */
+
+.hero{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.hero h1{
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span{
+    color: #00e5ff;
+}
+
+.hero p{
+    width: 60%;
+    font-size: 20px;
+    color: #d1d5db;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* Buttons */
+
+.btn-group{
+    display: flex;
+    gap: 20px;
+}
+
+.btn{
+    text-decoration: none;
+    padding: 15px 35px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.primary-btn{
+    background: #00e5ff;
+    color: black;
+}
+
+.primary-btn:hover{
+    background: #00bcd4;
+    transform: translateY(-5px);
+}
+
+.secondary-btn{
+    border: 2px solid #00e5ff;
+    color: #00e5ff;
+}
+
+.secondary-btn:hover{
+    background: #00e5ff;
+    color: black;
+    transform: translateY(-5px);
+}
+
+/* Features */
+
+.features{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px;
+}
+
+.card{
+    width: 300px;
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px #00e5ff;
+}
+
+.card h2{
+    margin-bottom: 15px;
+    color: #00e5ff;
+}
+
+.card p{
+    color: #ddd;
+    line-height: 1.6;
+}
+
+/* Footer */
+
+footer{
+    text-align: center;
+    padding: 20px;
+    background: #000;
+    color: #aaa;
+}
