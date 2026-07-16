@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact | My Portfolio{% endblock %}
+
+{% block content %}
+
+<h1 class="page-heading">Get In Touch</h1>
+
+<div class="contact-section">
+    <p>
+        Have a project in mind, a question, or just want to say hi?
+        Fill out the form below and I'll get back to you as soon as possible.
+    </p>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About | My Portfolio{% endblock %}
+
+{% block content %}
+
+<h1 class="page-heading">About Me</h1>
+
+<div class="about-section">
+    <img src="{% static 'images/hero.jpg' %}" alt="Profile" class="hero-img" style="margin-bottom: 1.5rem;">
+
+    <h2>Hi, MY Name is Harshit 👋</h2>
+    <p style="margin: 1rem 0;">
+        I'm a Django developer passionate about building clean, functional, and user-friendly
+        web applications. I enjoy working across the full stack — from designing intuitive
+        interfaces to writing efficient backend logic.
+    </p>
+    <p style="margin-bottom: 1.5rem;">
+        Outside of coding, I love exploring new technologies, contributing to side projects,
+        and constantly improving my skills as a developer.
+    </p>
+
+    <h3 style="margin-bottom: 0.8rem;">Skills</h3>
+    <ul class="skills-list">
+        <li>Python & Django</li>
+        <li>HTML, CSS, JavaScript</li>
+        <li>PostgreSQL / SQLite</li>
+        <li>Git & GitHub</li>
+        <li>REST APIs</li>
+    </ul>
+</div>
+
+{% endblock %}

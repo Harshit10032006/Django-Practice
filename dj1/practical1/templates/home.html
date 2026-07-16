@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | My Portfolio{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <img src="{% static 'images/hero.jpg' %}" alt="Profile" class="hero-img">
+        <h1>Hi, I'm <span>Harshit</span></h1>
+        <p>A Django developer who loves building clean, functional web apps.</p>
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<h2 class="page-heading" id="projects">My Projects</h2>
+
+<div class="projects-grid">
+    {% for project in projects %}
+        <div class="project-card"
+             onclick="openModal('{{ project.title|escapejs }}', '{{ project.description|escapejs }}', '{% static project.image %}', '{{ project.github_link }}', '{{ project.live_link }}')">
+            <img src="{% static project.image %}" alt="{{ project.title }}">
+            <h3>{{ project.title }}</h3>
+        </div>
+    {% empty %}
+        <p>No projects added yet.</p>
+    {% endfor %}
+</div>
+
+<!-- Modal -->
+<div id="projectModal" class="modal-overlay">
+    <div class="modal-box">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+        <div class="project-links">
+            <a id="modalGithub" href="#" target="_blank" class="btn btn-secondary">GitHub</a>
+            <a id="modalLive" href="#" target="_blank" class="btn btn-primary">Live Demo</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openModal(title, description, image, github, live) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalDescription').innerText = description;
+    document.getElementById('modalImage').src = image;
+
+    const githubBtn = document.getElementById('modalGithub');
+    const liveBtn = document.getElementById('modalLive');
+
+    githubBtn.href = github || '#';
+    githubBtn.style.display = github ? 'inline-block' : 'none';
+
+    liveBtn.href = live || '#';
+    liveBtn.style.display = live ? 'inline-block' : 'none';
+
+    document.getElementById('projectModal').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('projectModal').classList.remove('active');
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('projectModal');
+    if (event.target === modal) closeModal();
+}
+</script>
+{% endblock %}
