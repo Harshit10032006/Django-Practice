@@ -15,3 +15,8 @@ This repository contains my Django learning journey Just me Learning and Practic
 * Database Operations
 * Authentication
 * Django REST Framework *(coming soon)*
+
+![alt text](<Screenshot 2026-07-16 153000.png>)
+![alt text](<Screenshot 2026-07-16 152943.png>)
+![alt text](<Screenshot 2026-07-16 152910.png>)
+![alt text](<Screenshot 2026-07-16 152834.png>)
