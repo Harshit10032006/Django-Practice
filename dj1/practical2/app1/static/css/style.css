@@ -1,0 +1,185 @@
+:root {
+    --ink: #171B23;
+    --ink-soft: #4B5261;
+    --paper: #EEF1F6;
+    --card: #FFFFFF;
+    --line: #DCE1E9;
+    --accent-done: #2F7D5C;
+    --accent-done-soft: #E4F1EB;
+    --accent-pending: #C77F1A;
+    --accent-pending-soft: #FBEEDD;
+    --accent-danger: #B0432F;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background-color: var(--paper);
+    
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 35px,
+        var(--line) 36px
+    );
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.app-navbar {
+    background-color: var(--ink);
+    border-bottom: 3px solid var(--accent-done);
+}
+
+.app-brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    letter-spacing: -0.02em;
+}
+
+.app-brand .tick-box {
+    width: 26px;
+    height: 26px;
+    border: 2px solid var(--accent-done);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.app-brand .tick-box svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--accent-done);
+    stroke-width: 3;
+    fill: none;
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.app-brand:hover .tick-box svg {
+    stroke-dashoffset: 0;
+}
+
+.app-navbar .nav-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.93rem;
+    color: rgba(255, 255, 255, 0.72) !important;
+    padding: 0.5rem 0.9rem !important;
+    border-radius: 6px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.app-main {
+    flex: 1;
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 3rem;
+}
+
+.alert {
+    border: 1px solid var(--line);
+    border-left-width: 4px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    box-shadow: 0 1px 2px rgba(23, 27, 35, 0.04);
+}
+
+.alert-success {
+    background-color: var(--accent-done-soft);
+    border-left-color: var(--accent-done);
+    color: #1E4E3A;
+}
+
+.alert-warning {
+    background-color: var(--accent-pending-soft);
+    border-left-color: var(--accent-pending);
+    color: #7A4E0F;
+}
+
+.alert-danger, .alert-error {
+    background-color: #FBE9E5;
+    border-left-color: var(--accent-danger);
+    color: #7A2E1E;
+}
+
+.alert-info {
+    background-color: #E7EEF7;
+    border-left-color: #2F6FA8;
+    color: #1E4A70;
+}
+
+.app-card {
+    background-color: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(23, 27, 35, 0.05);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+}
+
+.text-muted-soft {
+    color: var(--ink-soft) !important;
+}
+
+.font-mono {
+    font-family: var(--font-mono);
+}
+
+.btn-done {
+    background-color: var(--accent-done);
+    border-color: var(--accent-done);
+    color: #fff;
+}
+
+.btn-done:hover {
+    background-color: #256648;
+    border-color: #256648;
+    color: #fff;
+}
+
+.app-footer {
+    border-top: 1px solid var(--line);
+    padding: 1rem 1.25rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+}
+
+.footer-icon-link {
+    color: var(--ink-soft);
+    display: inline-flex;
+    transition: color 0.15s ease;
+}
+
+.footer-icon-link:hover {
+    color: var(--accent-done);
+}
