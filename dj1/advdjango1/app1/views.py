@@ -14,7 +14,7 @@ def student_create(request):
             return render(request,'app1/success.html')
         return render(request, 'app1/student_form.html', {'form': form})
     return render(request, 'app1/student_form.html', {'form': form})
-
+    
 
 def student_list(request):
     students = Student.objects.all()
