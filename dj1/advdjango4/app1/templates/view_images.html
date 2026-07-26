@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>View Image</h1>
+    {% for image in images %}
+        <img src="{{ image.image.url }}" alt="{{ image.title }}">
+        <p>{{ image.title }}</p>
+    {% endfor %}
+{% endblock %}
