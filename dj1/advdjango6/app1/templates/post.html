@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post</title>
+</head>
+<body>
+    <h1>Post Search and Filter</h1>
+    <form action="" method="get">
+        <input type="text" name="q" placeholder="Search" value="{{request.GET.q}}">
+        <select name="category">
+            <option value="">All Categories</option>
+            <option value="tech">Tech {%if request.GET.category == 'tech'%}selected{%endif%}</option>
+            <option value="sports">Sports {%if request.GET.category == 'sports'%}selected{%endif%}</option>
+            <option value="politics">Politics {%if request.GET.category == 'politics'%}selected{%endif%}</option>
+        </select>
+        <input type="submit" value="Search">
+    </form>
+
+</body>
+</html>     
