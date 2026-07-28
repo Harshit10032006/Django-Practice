@@ -1,0 +1,41 @@
+ {% extends "base.html" %}
+
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h2 class="card-title">
+            {{ post.title }}
+        </h2>
+
+        <hr>
+
+        <p class="card-text">
+            {{ post.content }}
+        </p>
+
+        <hr>
+
+        <a href="{% url 'post_update' post.pk %}" class="btn btn-warning">
+            Edit
+        </a>
+
+        <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">
+            Delete
+        </a>
+
+        <a href="{% url 'post_list' %}" class="btn btn-secondary">
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
