@@ -4,7 +4,7 @@ This repository contains my Django learning journey Just me Learning and Practic
 
 ## Topics Covered
 
-* Django Project & App Structure
+* Django Project & App Structure.
 * URL Routing
 * Views
 * Templates
