@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from .models import Person
 from .serializers import PeopleSerializer
 
-# Create your views here.
+
+
 
 
 @api_view(['GET','POST','PUT',"PATCH"])
