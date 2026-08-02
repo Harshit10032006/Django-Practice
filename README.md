@@ -14,7 +14,7 @@ This repository contains my Django learning journey Just me Learning and Practic
 * Models
 * Database Operations
 * Authentication
-* Django REST Framework *(coming soon)*
+* Django REST Framework 
 
 # PROJECT 1 - AN dummy Portfolio
 
