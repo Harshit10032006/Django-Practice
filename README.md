@@ -1,4 +1,4 @@
-# Django Learning >
+# Django Learning 
 
 This repository contains my Django learning journey Just me Learning and Practicing .
 
