@@ -1,4 +1,4 @@
-# Django Learning 
+# Django Learning .
 
 This repository contains my Django learning journey Just me Learning and Practicing .
 
@@ -14,9 +14,9 @@ This repository contains my Django learning journey Just me Learning and Practic
 * Models
 * Database Operations
 * Authentication
-* Django REST Framework 
+* Django REST Framework
 
-# PROJECT 1 - AN dummy Portfolio 
+# PROJECT 1 - AN dummy Portfolio .
 
 <img width="1919" height="1108" alt="Screenshot 2026-07-16 152943" src="https://github.com/user-attachments/assets/789de26d-e704-4bed-8c6e-aaa518144900" />
 <img width="1919" height="953" alt="Screenshot 2026-07-16 153000" src="https://github.com/user-attachments/assets/734f156b-5820-4caf-bab5-9b7b058769db" />
