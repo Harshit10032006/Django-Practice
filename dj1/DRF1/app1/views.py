@@ -5,10 +5,6 @@ from rest_framework.response import Response
 from .models import Person
 from .serializers import PeopleSerializer
 
-
-
-
-
 @api_view(['GET','POST','PUT',"PATCH"])
 def index(request):
     courses={'Python':'Python course',
@@ -46,24 +42,20 @@ def person(request):
     
     elif request.method=='PATCH':
         data=request.data
-        id=request.data.get("id")
-        person = Person.objects.get(id=id)
+        id=request.data.get("name")
+        person = Person.objects.get(name=id)
         serializer=PeopleSerializer(person,data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
             return  Response(serializer.data)
         return Response(serializer.errors)
 
-    elif request.method=="DELETE":
+    elif request.method=="DELETE":  
         data=request.data
         obj=Person.objects.get(id=data["id"])
         obj.delete()
         return Response({"message":"Person deleted"})
-
-
-
-
-
+        
     else :
         data=request.data
         serializer=PeopleSerializer(data=data)
