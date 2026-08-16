@@ -4,7 +4,21 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response 
 from .models import Person
 from .serializers import PeopleSerializer
+from rest_framework.views  import APIView
 
+
+class PersonApi(APIView):
+    def get(self,request):
+        return Response({'message': 'Get request successful'})
+    def post(self,request):
+        return Response({'message': 'Post request successful'})
+    def put(self,request):
+        return Response({'message': 'Put request successful'})
+    def patch(self,request):
+        return Response({'message': 'Patch request successful'})
+    def delete(self,request):
+        return Response({'message': 'Delete request successful'})
+     
 @api_view(['GET','POST','PUT',"PATCH"])
 def index(request):
     courses={'Python':'Python course',
@@ -42,8 +56,8 @@ def person(request):
     
     elif request.method=='PATCH':
         data=request.data
-        id=request.data.get("name")
-        person = Person.objects.get(name=id)
+        id=request.data.get("id")
+        person = Person.objects.get(id=id)
         serializer=PeopleSerializer(person,data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -63,5 +77,4 @@ def person(request):
             serializer.save()
             return  Response(serializer.data)
         return Response(serializer.errors)
-
 
