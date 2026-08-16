@@ -6,6 +6,7 @@ from .models import Person
 from .serializers import PeopleSerializer
 from rest_framework.views  import APIView
 
+from rest_framework import viewsets
 
 class PersonApi(APIView):
     def get(self,request):
@@ -78,3 +79,15 @@ def person(request):
             return  Response(serializer.data)
         return Response(serializer.errors)
 
+
+class PersonViewSet(viewsets.ModelViewSet): # all crud done but cannot customize (which is bad i think )
+    queryset = Person.objects.all()
+    serializer_class = PeopleSerializer
+
+    def list(self,request):
+        quer=self.queryset
+        search=request.GET.get('no')
+        if search:
+            quer=quer.filter(name__startswith=search)
+        serializer=PeopleSerializer(quer,many=True)
+        return Response(serializer.data)
